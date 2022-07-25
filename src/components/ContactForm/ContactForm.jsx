@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { useContacts } from '../../redux';
 import { Form, Label, Input, Button } from './ContactForm.styled';
+import { useContacts } from 'redux/contactsOperations';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -10,7 +10,6 @@ const ContactForm = () => {
 
   const inputNameId = nanoid(12);
   const inputNumberId = nanoid(12);
-
   const { addContact } = useContacts();
 
   const inputChangeHandler = event => {

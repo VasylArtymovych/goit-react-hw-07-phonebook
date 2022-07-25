@@ -1,12 +1,18 @@
+import { useEffect } from 'react';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactLIst';
 import Filter from 'components/Filter';
 import { Box } from 'components/Box/Box';
 import { Container, Title } from './App.styled';
-import { useContacts } from '../../redux';
+import { useContacts } from 'redux/contactsOperations';
+import Spinner from 'components/Spinner/Spinner';
 
 const App = () => {
-  const { contacts, filter, setFilter } = useContacts();
+  const { contacts, filter, loader, getContacts, setFilter } = useContacts();
+
+  useEffect(() => {
+    getContacts();
+  }, []); //!!!!
 
   const handleFilterInput = event => {
     const { value } = event.target;
@@ -36,7 +42,8 @@ const App = () => {
           <Filter value={filter} onChange={handleFilterInput} />
           <h3>Total contacts: {filteredContacts.length}</h3>
         </Box>
-        <ContactList contacts={filteredContacts} />
+
+        {loader ? Spinner : <ContactList contacts={filteredContacts} />}
       </Container>
     </Box>
   );
