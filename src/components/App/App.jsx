@@ -6,13 +6,16 @@ import { Box } from 'components/Box/Box';
 import { Container, Title } from './App.styled';
 import { useContacts } from 'redux/contactsOperations';
 import Spinner from 'components/Spinner/Spinner';
+import { useDispatch } from 'react-redux';
+import { getItems } from 'redux/contactsOperations';
 
 const App = () => {
-  const { contacts, filter, loader, getContacts, setFilter } = useContacts();
-
+  const { contacts, filter, loader, setFilter } = useContacts();
+  const dispatch = useDispatch();
   useEffect(() => {
-    getContacts();
-  }, []); //!!!!
+    // getContacts() !!! зациклює
+    dispatch(getItems());
+  }, [dispatch]);
 
   const handleFilterInput = event => {
     const { value } = event.target;
