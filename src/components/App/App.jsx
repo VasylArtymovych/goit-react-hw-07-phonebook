@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Container, Title } from './App.styled';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactLIst';
 import Filter from 'components/Filter';
 import { Box } from 'components/Box/Box';
-import { Container, Title } from './App.styled';
-import { useContacts } from 'redux/contactsOperations';
 import Spinner from 'components/Spinner/Spinner';
-import { useDispatch } from 'react-redux';
+import { useContacts } from 'hooks';
 import { getItems } from 'redux/contactsOperations';
 
 const App = () => {

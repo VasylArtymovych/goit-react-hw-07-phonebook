@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { Form, Label, Input, Button } from './ContactForm.styled';
-import { useContacts } from 'redux/contactsOperations';
+import { useContacts } from 'hooks';
 
 const ContactForm = () => {
   const [name, setName] = useState('');

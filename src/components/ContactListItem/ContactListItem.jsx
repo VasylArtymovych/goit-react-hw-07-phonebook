@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Item, Button } from './ContactListItem.styled';
-import { useContacts } from 'redux/contactsOperations';
+import { useContacts } from 'hooks';
 
 const ContactListItem = ({ id, name, number, createdAt }) => {
   const { deleteContact } = useContacts();
