@@ -1,10 +1,6 @@
-import { combineReducers, createReducer } from '@reduxjs/toolkit';
-import {
-  getItems,
-  addItem,
-  deleteItem,
-  changeFilter,
-} from './contactsOperations';
+import { getItems, addItem, deleteItem } from './contactsOperations';
+import { combineReducers, createReducer, createSlice } from '@reduxjs/toolkit';
+import { changeFilterAction } from './contactsActions';
 
 const items = createReducer([], {
   [getItems.fulfilled]: (_, { payload }) => payload,
@@ -14,15 +10,15 @@ const items = createReducer([], {
 });
 
 const loader = createReducer(false, {
-  [getItems.pending]: (_, { payload }) => true,
-  [getItems.fulfilled]: (_, { payload }) => false,
-  [getItems.rejected]: (_, { payload }) => false,
-  [addItem.pending]: (_, { payload }) => true,
-  [addItem.fulfilled]: (_, { payload }) => false,
-  [addItem.rejected]: (_, { payload }) => false,
-  [deleteItem.pending]: (_, { payload }) => true,
-  [deleteItem.fulfilled]: (_, { payload }) => false,
-  [deleteItem.rejected]: (_, { payload }) => false,
+  [getItems.pending]: (_, action) => true,
+  [getItems.fulfilled]: (_, action) => false,
+  [getItems.rejected]: (_, action) => false,
+  [addItem.pending]: (_, action) => true,
+  [addItem.fulfilled]: (_, action) => false,
+  [addItem.rejected]: (_, action) => false,
+  [deleteItem.pending]: (_, action) => true,
+  [deleteItem.fulfilled]: (_, action) => false,
+  [deleteItem.rejected]: (_, action) => false,
 });
 
 const error = createReducer('', {
@@ -32,7 +28,7 @@ const error = createReducer('', {
 });
 
 const filter = createReducer('', {
-  [changeFilter]: (_, { payload }) => payload,
+  [changeFilterAction]: (_, { payload }) => payload,
 });
 
 export const contactsReducer = combineReducers({
@@ -41,3 +37,54 @@ export const contactsReducer = combineReducers({
   loader,
   error,
 });
+
+//Second option with SLICE
+
+// const contactsSlice = createSlice({
+//   name: 'contacts',
+//   initialState: {
+//     items: [],
+//     filter: '',
+//     loader: false,
+//     error: null,
+//   },
+//   reducers: {
+//     changeFilter(state, { payload }) {
+//       return { ...state, filter: payload };
+//     },
+//   },
+//   extraReducers: {
+//     [getItems.fulfilled]: (state, { payload }) => ({
+//       ...state,
+//       items: payload,
+//     }),
+//     [getItems.pending]: (state, _) => ({ ...state, loader: true }),
+//     [getItems.fulfilled]: (state, _) => ({ ...state, loader: false }),
+//     [getItems.rejected]: (state, _) => ({ ...state, loader: false }),
+//     [getItems.rejected]: (state, { payload }) => ({ ...state, error: payload }),
+
+//     [addItem.fulfilled]: (state, { payload }) => ({
+//       ...state,
+//       items: [payload, ...state],
+//     }),
+//     [addItem.pending]: (state, _) => ({ ...state, loader: true }),
+//     [addItem.fulfilled]: (state, _) => ({ ...state, loader: false }),
+//     [addItem.rejected]: (state, _) => ({ ...state, loader: false }),
+//     [addItem.rejected]: (state, { payload }) => ({ ...state, error: payload }),
+
+//     [deleteItem.fulfilled]: (state, { payload }) => ({
+//       ...state,
+//       items: state.items.filter(({ id }) => id !== payload),
+//     }),
+//     [deleteItem.pending]: (state, _) => ({ ...state, loader: true }),
+//     [deleteItem.fulfilled]: (state, _) => ({ ...state, loader: false }),
+//     [deleteItem.rejected]: (state, _) => ({ ...state, loader: false }),
+//     [deleteItem.rejected]: (state, { payload }) => ({
+//       ...state,
+//       error: payload,
+//     }),
+//   },
+// });
+
+// export const { changeFilter } = contactsSlice.actions;
+// export default contactsSlice.reducer;

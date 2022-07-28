@@ -1,6 +1,9 @@
-import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { fetchContacts, addContact, deleteContact } from 'server/serverApi';
+import { changeFilterAction } from './contactsActions';
+// import { changeFilter } from './contactsReducer';
 
 // actionCreators
 export const getItems = createAsyncThunk('contacts/fetchContacts', async () => {
@@ -30,9 +33,6 @@ export const deleteItem = createAsyncThunk('contacts/delete', async id => {
   }
 });
 
-// filterAction
-export const changeFilter = createAction('contacts/filter');
-
 // contactsHook
 export const useContacts = () => {
   const contacts = useSelector(state => state.contacts.items);
@@ -54,7 +54,7 @@ export const useContacts = () => {
   };
 
   const setFilter = value => {
-    dispatch(changeFilter(value));
+    dispatch(changeFilterAction(value));
   };
 
   return {
