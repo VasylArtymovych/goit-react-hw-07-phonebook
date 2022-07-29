@@ -10,7 +10,7 @@ import { useContacts } from 'hooks';
 import { Operations } from '../../redux';
 
 const App = () => {
-  const { contacts, filter, loader, setFilter } = useContacts();
+  const { contacts, filter, setFilter } = useContacts();
   const dispatch = useDispatch();
   useEffect(() => {
     // getContacts() !!! зациклює
