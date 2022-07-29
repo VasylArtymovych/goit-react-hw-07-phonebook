@@ -10,7 +10,7 @@ const ContactForm = () => {
 
   const inputNameId = nanoid(12);
   const inputNumberId = nanoid(12);
-  const { addContact } = useContacts();
+  const { loader, addContact } = useContacts();
 
   const inputChangeHandler = event => {
     const { name, value } = event.target;
@@ -28,12 +28,7 @@ const ContactForm = () => {
 
   const submitHandler = event => {
     event.preventDefault();
-    const contact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-    addContact(contact);
+    addContact({ name, number });
     resetForm();
   };
 
@@ -70,7 +65,7 @@ const ContactForm = () => {
         placeholder="tellephone number xxx-xx-xx"
       />
 
-      <Button>Add contact</Button>
+      <Button disabled={loader}> {loader ? 'Adding...' : 'Add contact'}</Button>
     </Form>
   );
 };

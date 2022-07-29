@@ -46,7 +46,11 @@ const App = () => {
           <h3>Total contacts: {filteredContacts.length}</h3>
         </Box>
 
-        {loader ? Spinner : <ContactList contacts={filteredContacts} />}
+        {contacts.length === 0 ? (
+          Spinner
+        ) : (
+          <ContactList contacts={filteredContacts} />
+        )}
       </Container>
     </Box>
   );
