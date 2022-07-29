@@ -7,14 +7,14 @@ import Filter from 'components/Filter';
 import { Box } from 'components/Box/Box';
 import Spinner from 'components/Spinner/Spinner';
 import { useContacts } from 'hooks';
-import { getItems } from 'redux/contactsOperations';
+import { Operations } from '../../redux';
 
 const App = () => {
   const { contacts, filter, loader, setFilter } = useContacts();
   const dispatch = useDispatch();
   useEffect(() => {
     // getContacts() !!! зациклює
-    dispatch(getItems());
+    dispatch(Operations.getItems());
   }, [dispatch]);
 
   const handleFilterInput = event => {

@@ -5,7 +5,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import App from 'components/App';
 import './index.css';
 import { Theme } from './components/Theme';
-import { store } from './redux/store';
+import { Store } from './redux';
 
 const Global = createGlobalStyle`
   * {
@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Global />
     <ThemeProvider theme={Theme}>
-      <Provider store={store}>
+      <Provider store={Store.store}>
         <App />
       </Provider>
     </ThemeProvider>
