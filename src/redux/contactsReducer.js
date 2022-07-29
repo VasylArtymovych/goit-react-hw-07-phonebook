@@ -9,6 +9,7 @@ const contactsSlice = createSlice({
   initialState: {
     items: [],
     filter: '',
+    addLoader: false,
     loader: false,
     error: null,
   },
@@ -30,16 +31,16 @@ const contactsSlice = createSlice({
       loader: false,
     }),
 
-    [addItem.pending]: (state, _) => ({ ...state, loader: true }),
+    [addItem.pending]: (state, _) => ({ ...state, addLoader: true }),
     [addItem.fulfilled]: (state, { payload }) => ({
       ...state,
       items: [payload, ...state.items],
-      loader: false,
+      addLoader: false,
     }),
     [addItem.rejected]: (state, { payload }) => ({
       ...state,
       error: payload,
-      loader: false,
+      addLoader: false,
     }),
 
     [deleteItem.pending]: (state, _) => ({ ...state, loader: true }),
